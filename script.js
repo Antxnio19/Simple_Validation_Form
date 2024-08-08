@@ -47,7 +47,7 @@ const success = (input) => {
 const checkEmail = (input) => {
     const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (regEx.test(input.value.train())){
+    if (regEx.test(input.value.trim())){
         success(input);
     } else {
         error(input, "Email is not valid");
@@ -56,8 +56,8 @@ const checkEmail = (input) => {
 
 const checkRequiredFields = (inputArr) => {
     inputArr.forEach((input) => {
-        if (input.value.trim() == "") {
-            if (input.id == password2) {
+        if (input.value.trim() === "") {
+            if (input.id === password2) {
                 error(input, "Password confirmation is required");
             } else {
                 error(input, `${input.id} is required`);
@@ -68,7 +68,7 @@ const checkRequiredFields = (inputArr) => {
     });
 };
 
-const chechLength = (input, min, max) => {
+const checkLength = (input, min, max) => {
     if (input.value.length < min) {
         error(input, `${input.id} must be at least ${min} characters`);
     } else if (input.value.length > max) {
@@ -79,7 +79,7 @@ const chechLength = (input, min, max) => {
 };
 
 const passwordsMatch = (input1, input2) => {
-    if (input1.value != input2.value){
+    if (input1.value !== input2.value){
         error(input2, "Passwords do not match");
     }
 };
@@ -88,12 +88,12 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     if (form.classList[1] === "sign-up") {
-        chechRequiredFields((username, email, password, password2));
+        checkRequiredFields((username, email, password, password2));
         checkLength(username, 2, 15);
         checkLength(password, 5, 25);
         passwordsMatch(password, password2);
     } else {
-        checkRequiredFields((email, password));
+        checkRequiredFields([email, password]);
     }
     checkEmail(email);
 });
