@@ -57,7 +57,7 @@ const checkEmail = (input) => {
 const checkRequiredFields = (inputArr) => {
     inputArr.forEach((input) => {
         if (input.value.trim() === "") {
-            if (input.id === password2) {
+            if (input.id === "password2") {
                 error(input, "Password confirmation is required");
             } else {
                 error(input, `${input.id} is required`);
@@ -79,7 +79,7 @@ const checkLength = (input, min, max) => {
 };
 
 const passwordsMatch = (input1, input2) => {
-    if (input1.value !== input2.value){
+    if (input1.value !== input2.value) {
         error(input2, "Passwords do not match");
     }
 };
